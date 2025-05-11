@@ -1,9 +1,6 @@
 from selenium import webdriver
 from selenium.webdriver.chrome.options import Options
 
-class Device:
-    iPhoneX = "iPhone X"
-    GalaxyS5 = "Galaxy S5"
 
 def get_driver(device_name):
     mobile_emulation = { "deviceName": device_name }

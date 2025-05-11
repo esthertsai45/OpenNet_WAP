@@ -11,3 +11,4 @@ build/
 reports/
 pytest-report.xml
 .python-version
+pytestdebug.log

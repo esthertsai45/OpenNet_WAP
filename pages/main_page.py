@@ -1,15 +1,25 @@
+import logging
 from pages.common import Base
-import time
+from pages.search_result_page import ResultPage
 from locators.locator import Locators
+from selenium.webdriver.common.by import By
+from selenium.webdriver.common.keys import Keys
 
 
 class MainPage(Base):
     def __init__(self, driver):
         self.driver = driver
 
-    def load(self):
-        self.driver.get("https://m.twitch.tv/")
+    def load(self, url):
+        logging.info(f"go to {url} website...")
+        self.driver.get(url)
+        self.wait_for_element_invisible(*Locators.LOADING)
 
-    def get_title(self):
-        return self.driver.title
-
+    def search(self, input_text):
+        logging.info(f"search {input_text} ...")
+        self.click_element_by_locator(*Locators.BROWSER)
+        search_filed = self.find_element(*Locators.SEARCH_FIELD)
+        search_filed.clear()
+        search_filed.send_keys(input_text)
+        search_filed.send_keys(Keys.RETURN)
+        return ResultPage(self.driver)
