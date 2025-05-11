@@ -54,7 +54,4 @@ We use [Page object Pattern](https://www.selenium.dev/documentation/test_practic
 
 - ![Allure report](./screenshots/WAP.png)
 
-<video width="320" height="240" controls>
-  <source src="screenshots/WAP_480" type="video/quicktime">
-  Your browser does not support the video tag.
-</video>
+- [▶ 點我觀看測試過程](https://github.com/esthertsai45/OpenNet_WAP/blob/main/screenshots/WAP_480.mov?raw=true)
