@@ -52,9 +52,9 @@ We use [Page object Pattern](https://www.selenium.dev/documentation/test_practic
 
 ### Test result
 
-- ![Allure report](./screenshots/video.png)
+- ![Allure report](./screenshots/WAP.png)
 
 <video width="320" height="240" controls>
-  <source src=./screenshots/WAP.mov type="video/quicktime">
+  <source src="screenshots/WAP.mov?raw=true" type="video/quicktime">
   Your browser does not support the video tag.
-</video>https://file+.vscode-resource.vscode-cdn.net/Users/esthertsai/Desktop/opennet_homework/OpenNet_WAP/screenshots/video.png
+</video>
