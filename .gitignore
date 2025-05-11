@@ -12,4 +12,4 @@ reports/
 pytest-report.xml
 .python-version
 pytestdebug.log
-screenshots/
+.DS_Store
