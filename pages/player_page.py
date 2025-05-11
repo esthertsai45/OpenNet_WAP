@@ -1,6 +1,5 @@
-
-from pages.common import Base
 from locators.locator import Locators
+from pages.common import Base
 
 
 class PlayerPage(Base):

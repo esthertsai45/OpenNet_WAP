@@ -3,7 +3,6 @@ import time
 from pathlib import Path
 
 import allure
-
 from selenium.common.exceptions import NoSuchElementException, TimeoutException
 from selenium.webdriver.support import expected_conditions as EC
 from selenium.webdriver.support.ui import Select, WebDriverWait
@@ -22,7 +21,7 @@ class Base:
 
     def find_element(self, *locator):
         try:
-            logging.debug('find locator: %s', str(locator))
+            logging.debug("find locator: %s", str(locator))
             self.wait_for_element(*locator)
             element = self.driver.find_element(*locator)
             return element
@@ -32,7 +31,7 @@ class Base:
 
     def find_element_in_element(self, element, *locator):
         try:
-            logging.debug('find locator: %s', str(locator))
+            logging.debug("find locator: %s", str(locator))
             inside_element = element.find_element(*locator)
             return inside_element
         except (NoSuchElementException, TimeoutException) as error:
@@ -41,7 +40,7 @@ class Base:
 
     def find_element_visible(self, *locator):
         try:
-            logging.debug('find locator: %s', str(locator))
+            logging.debug("find locator: %s", str(locator))
             self.wait_for_element_visible(*locator)
             element = self.driver.find_element(*locator)
             return element
@@ -51,7 +50,7 @@ class Base:
 
     def find_elements(self, *locator):
         try:
-            logging.debug('find locator: %s', str(locator))
+            logging.debug("find locator: %s", str(locator))
             self.wait_for_element(*locator)
             elements = self.driver.find_elements(*locator)
             return elements
@@ -60,44 +59,56 @@ class Base:
             return None
 
     def wait_for_element(self, *locator, timeout=0):
-        logging.debug('wait for locator to be located: %s', str(locator))
-        return self.__wait(timeout if timeout > 0 else 10).until(EC.presence_of_element_located(locator))
+        logging.debug("wait for locator to be located: %s", str(locator))
+        return self.__wait(timeout if timeout > 0 else 10).until(
+            EC.presence_of_element_located(locator)
+        )
 
     def wait_for_element_visible(self, *locator, timeout=0):
-        logging.debug('wait for locator to be located: %s', str(locator))
-        return self.__wait(timeout if timeout > 0 else 10).until(EC.visibility_of_element_located(locator))
+        logging.debug("wait for locator to be located: %s", str(locator))
+        return self.__wait(timeout if timeout > 0 else 10).until(
+            EC.visibility_of_element_located(locator)
+        )
 
     def wait_for_element_invisible(self, *locator, timeout=0):
-        logging.debug('wait for locator becomes invisible: %s', str(locator))
-        return self.__wait(timeout if timeout > 0 else 10).until(EC.invisibility_of_element_located(locator))
+        logging.debug("wait for locator becomes invisible: %s", str(locator))
+        return self.__wait(timeout if timeout > 0 else 10).until(
+            EC.invisibility_of_element_located(locator)
+        )
 
     def wait_for_element_clickable(self, *locator, timeout=0):
-        logging.debug('wait for locator to be clickable: %s', str(locator))
-        return self.__wait(timeout if timeout > 0 else 10).until(EC.element_to_be_clickable(locator))
+        logging.debug("wait for locator to be clickable: %s", str(locator))
+        return self.__wait(timeout if timeout > 0 else 10).until(
+            EC.element_to_be_clickable(locator)
+        )
 
     def wait_for_element_not_present(self, *locator, timeout=0):
-        return self.__wait(timeout if timeout > 0 else 10).until(EC.invisibility_of_element_located(locator))
+        return self.__wait(timeout if timeout > 0 else 10).until(
+            EC.invisibility_of_element_located(locator)
+        )
 
     def scroll_to_position(self, x, y) -> None:
         self.driver.execute_script(f"window.scrollBy({x}, {y});")
 
     def scroll_to_bottom(self):
-        self.driver.execute_script(
-            "window.scrollTo(0, document.body.scrollHeight);")
+        self.driver.execute_script("window.scrollTo(0, document.body.scrollHeight);")
 
     def take_screenshot(self, file_name: str):
         current_dir = Path(__file__).resolve()
         parent_dir = current_dir.parent.parent
         print(parent_dir)
         self.driver.save_screenshot(file_name)
-        allure.attach.file(f"{parent_dir}{file_name}", file_name,
-                           attachment_type=allure.attachment_type.PNG)
+        allure.attach.file(
+            f"{parent_dir}{file_name}",
+            file_name,
+            attachment_type=allure.attachment_type.PNG,
+        )
 
     def scroll_to_element_by_locator(self, *locator):
         element = self.find_element(*locator)
-        x = element.location['x']
-        y = element.location['y']
-        self.scroll_to_position(x/2, y)
+        x = element.location["x"]
+        y = element.location["y"]
+        self.scroll_to_position(x / 2, y)
         time.sleep(1)
 
     def click_element_by_locator(self, *locator) -> None:
@@ -105,15 +116,15 @@ class Base:
         if element is not None:
             self.click_element_by_element(element)
         else:
-            logging.debug('cannot find element')
+            logging.debug("cannot find element")
 
     def click_element_by_element(self, element):
-        logging.debug('click element: %s', str(element))
+        logging.debug("click element: %s", str(element))
         element.click()
 
     def select_element(self, *locator):
         try:
-            logging.debug('find locator: %s', str(locator))
+            logging.debug("find locator: %s", str(locator))
             self.wait_for_element(*locator)
             element = self.driver.find_element(*locator)
             time.sleep(1)

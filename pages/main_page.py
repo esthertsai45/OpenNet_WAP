@@ -1,9 +1,10 @@
 import logging
+
+from selenium.webdriver.common.keys import Keys
+
+from locators.locator import Locators
 from pages.common import Base
 from pages.search_result_page import ResultPage
-from locators.locator import Locators
-from selenium.webdriver.common.by import By
-from selenium.webdriver.common.keys import Keys
 
 
 class MainPage(Base):
