@@ -1,5 +1,8 @@
 import logging
 import time
+from pathlib import Path
+
+import allure
 
 from selenium.common.exceptions import NoSuchElementException, TimeoutException
 from selenium.webdriver.support import expected_conditions as EC
@@ -78,6 +81,18 @@ class Base:
     def scroll_to_position(self, x, y) -> None:
         self.driver.execute_script(f"window.scrollBy({x}, {y});")
 
+    def scroll_to_bottom(self):
+        self.driver.execute_script(
+            "window.scrollTo(0, document.body.scrollHeight);")
+
+    def take_screenshot(self, file_name: str):
+        current_dir = Path(__file__).resolve()
+        parent_dir = current_dir.parent.parent
+        print(parent_dir)
+        self.driver.save_screenshot(file_name)
+        allure.attach.file(f"{parent_dir}{file_name}", file_name,
+                           attachment_type=allure.attachment_type.PNG)
+
     def scroll_to_element_by_locator(self, *locator):
         element = self.find_element(*locator)
         x = element.location['x']
@@ -126,8 +141,8 @@ class Base:
     def back_to_default_content(self):
         self.driver.switch_to.default_content()
 
-    def wait_for_alert(self):
-        WebDriverWait(self.driver, self.TIME_OUT).until(EC.alert_is_present())
+    # def wait_for_alert(self):
+    #     WebDriverWait(self.driver, self.TIME_OUT).until(EC.alert_is_present())
 
     # def click_alert_accept(self):
     #     self.driver.switch_to.alert.accept()
