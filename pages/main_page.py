@@ -9,7 +9,7 @@ from pages.search_result_page import ResultPage
 
 class MainPage(Base):
     def __init__(self, driver):
-        self.driver = driver
+        super().__init__(driver = driver)
 
     def load(self, url):
         logging.info(f"go to {url} website...")
